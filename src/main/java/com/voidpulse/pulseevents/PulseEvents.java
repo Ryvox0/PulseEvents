@@ -34,6 +34,11 @@ public class PulseEvents extends JavaPlugin {
         eventManager.registerEvent(new RandomTeleportEvent(this));
         eventManager.registerEvent(new FireFeetEvent(this));
         eventManager.registerEvent(new FreezeEvent(this));
+        eventManager.registerEvent(new ReverseControlsEvent(this));
+        eventManager.registerEvent(new BlackHoleEvent(this));
+        eventManager.registerEvent(new RandomEffectsEvent(this));
+        eventManager.registerEvent(new TargetPlayerEvent(this));
+        eventManager.registerEvent(new SpinEvent(this));
 
         // task (config-based)
         EventTask.start(this, eventManager);
