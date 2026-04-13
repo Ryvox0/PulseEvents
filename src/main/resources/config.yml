@@ -2,16 +2,30 @@ settings:
   language: en
 
 events:
-  min-interval: 180   # seconds
-  max-interval: 600   # seconds
-  duration: 60
+  min-interval: 180
+  max-interval: 600
+  coin-rain:
+    reward:
+      min: 1.0
+      max: 5.0
+    drop-interval-ticks: 10
+    velocity-multiplier: 0.4
 
 announcements:
   times:
     - 10
     - 5
     - 1
-  message: "&eEvent starts in &c%time% &eminutes!"
+
+bossbar:
+  enabled: true
+  color: BLUE
+  style: SOLID
+
+update-check:
+  enabled: true
+  check-on-startup: true
+  notify-on-join: true
 
 multiworld:
   enabled: true

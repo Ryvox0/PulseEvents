@@ -1,46 +1,102 @@
 package com.voidpulse.pulseevents.manager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.Locale;
 
 @SuppressWarnings("deprecation")
 public class LiveUIManager {
 
-    public LiveUIManager() {
-    }
+    private final JavaPlugin plugin;
+    private final LanguageManager lang;
     private BossBar bossBar;
+    private BukkitTask progressTask;
 
-    // =========================
-    // START UI
-    // =========================
-    public void start(String eventName) {
+    public LiveUIManager(JavaPlugin plugin, LanguageManager lang) {
+        this.plugin = plugin;
+        this.lang = lang;
+    }
 
-        bossBar = Bukkit.createBossBar(
-                ChatColor.GREEN + "Event: " + eventName,
-                BarColor.BLUE,
-                BarStyle.SOLID
-        );
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            bossBar.addPlayer(p);
+    public void start(String eventName, int durationSeconds) {
+        if (!plugin.getConfig().getBoolean("bossbar.enabled", true)) {
+            return;
         }
 
+        stop();
+
+        bossBar = Bukkit.createBossBar(
+                lang.get("bossbar.title", "%event%", eventName),
+                getBarColor(),
+                getBarStyle()
+        );
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            bossBar.addPlayer(player);
+        }
+
+        bossBar.setProgress(1.0);
         bossBar.setVisible(true);
+
+        if (durationSeconds <= 0) {
+            return;
+        }
+
+        final int totalTicks = durationSeconds * 20;
+        final int[] elapsedTicks = {0};
+
+        progressTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (bossBar == null) {
+                return;
+            }
+
+            elapsedTicks[0]++;
+            double progress = Math.max(0.0, 1.0 - ((double) elapsedTicks[0] / totalTicks));
+            bossBar.setProgress(progress);
+        }, 1L, 1L);
     }
 
-    // =========================
-    // STOP UI
-    // =========================
+    public void addPlayer(Player player) {
+        if (bossBar != null) {
+            bossBar.addPlayer(player);
+        }
+    }
+
     public void stop() {
+        if (progressTask != null) {
+            progressTask.cancel();
+            progressTask = null;
+        }
 
         if (bossBar != null) {
             bossBar.removeAll();
             bossBar.setVisible(false);
             bossBar = null;
+        }
+    }
+
+    private BarColor getBarColor() {
+        String configured = plugin.getConfig().getString("bossbar.color", "BLUE");
+
+        try {
+            return BarColor.valueOf(configured.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException ex) {
+            return BarColor.BLUE;
+        }
+    }
+
+    private BarStyle getBarStyle() {
+        String configured = plugin.getConfig().getString("bossbar.style", "SOLID");
+
+        try {
+            return BarStyle.valueOf(configured.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException ex) {
+            return BarStyle.SOLID;
         }
     }
 }

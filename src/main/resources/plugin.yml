@@ -6,7 +6,7 @@ api-version: 1.20
 commands:
   pe:
     description: Main command
-    usage: /pe
+    usage: /pe <help|start|stop|status|reload|update>
     permission: pulseevents.admin
 
 permissions:

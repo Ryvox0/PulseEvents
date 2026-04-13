@@ -1,6 +1,84 @@
 prefix: "&6[PulseEvents] "
 
-event-start: "&eEvent started: &b%event%"
-event-end: "&cEvent ended: &b%event%"
-no-events: "&cNo events registered!"
-milk-blocked: "&cYou cannot use milk during the event!"
+command:
+  usage: "&eUse: &f/pe help"
+  unknown: "&cUnknown subcommand."
+  no-permission: "&cYou do not have permission to use this command."
+  help:
+    header: "&eAvailable PulseEvents commands:"
+    line-help: "&6/pe help &7- Show all plugin commands"
+    line-start: "&6/pe start &7- Start a random event immediately"
+    line-stop: "&6/pe stop &7- Stop the current event"
+    line-status: "&6/pe status &7- Show the current event status"
+    line-reload: "&6/pe reload &7- Reload config and language files"
+    line-update: "&6/pe update &7- Check for a new plugin version"
+  start:
+    success: "&aA random event has been started."
+    failed: "&cThe event could not be started. Make sure players are online."
+    no-events: "&cNo events are registered."
+    already-running: "&cAn event is already running: &f%event%&c."
+  stop:
+    success: "&cStopped event: &f%event%"
+    no-event: "&cThere is no active event to stop."
+  status:
+    running: "&aCurrent event: &f%event%"
+    idle: "&eNo event is active right now."
+  reload:
+    success: "&aConfiguration and language files reloaded. Active language: &f%language%&a."
+  update:
+    checking: "&7Checking GitHub for the latest release..."
+
+announcement:
+  starting-in: "&eThe next event starts in &c%time% &eminute(s)."
+
+event:
+  start: "&eEvent started: &b%event%"
+  end: "&cEvent ended: &b%event%"
+  no-events: "&cNo events are registered."
+  coin-rain:
+    reward-received: "&aYou collected a coin reward: &f%amount%"
+    deposit-failed: "&cThe reward could not be added to your balance."
+  target:
+    no-players: "&cThere are no online players to target."
+    selected: "&cTARGET: &e%player%"
+
+events:
+  low-gravity:
+    name: "Low Gravity"
+  coin-rain:
+    name: "Coin Rain"
+  lightning-storm:
+    name: "Lightning Storm"
+  tnt-rain:
+    name: "TNT Rain"
+  mob-swarm:
+    name: "Mob Swarm"
+  random-teleport:
+    name: "Random Teleport"
+  fire-feet:
+    name: "Fire Feet"
+  freeze:
+    name: "Freeze"
+  reverse-controls:
+    name: "Reverse Controls"
+  black-hole:
+    name: "Black Hole"
+  random-effects:
+    name: "Random Effects"
+  target-player:
+    name: "Target Player"
+  spin:
+    name: "Spin"
+
+bossbar:
+  title: "&9Pulse Event: &f%event%"
+
+milk-blocked: "&cYou cannot use milk during an active event."
+
+update:
+  available:
+    line-1: "&eA new PulseEvents version is available: &a%latest% &7(current: &c%current%&7)"
+    line-2: "&7Download: &b%url%"
+  up-to-date: "&aYou already have the latest version installed: &f%current%"
+  check-failed: "&cUpdate check failed. Check your internet connection or GitHub availability."
+  console-check-failed: "Update check failed."

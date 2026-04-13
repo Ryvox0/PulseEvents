@@ -1,6 +1,84 @@
 prefix: "&6[PulseEvents] "
 
-event-start: "&eRozpoczęto event: &b%event%"
-event-end: "&cZakończono event: &b%event%"
-no-events: "&cBrak eventów!"
-milk-blocked: "&cNie możesz używać mleka podczas eventu!"
+command:
+  usage: "&eUzyj: &f/pe help"
+  unknown: "&cNieznana podkomenda."
+  no-permission: "&cNie masz permisji do uzycia tej komendy."
+  help:
+    header: "&eDostepne komendy PulseEvents:"
+    line-help: "&6/pe help &7- Pokazuje wszystkie komendy pluginu"
+    line-start: "&6/pe start &7- Natychmiast uruchamia losowy event"
+    line-stop: "&6/pe stop &7- Zatrzymuje aktualny event"
+    line-status: "&6/pe status &7- Pokazuje status aktualnego eventu"
+    line-reload: "&6/pe reload &7- Przeladowuje config i pliki jezykowe"
+    line-update: "&6/pe update &7- Sprawdza nowa wersje pluginu"
+  start:
+    success: "&aUruchomiono losowy event."
+    failed: "&cNie udalo sie uruchomic eventu. Upewnij sie, ze gracze sa online."
+    no-events: "&cNie zarejestrowano zadnych eventow."
+    already-running: "&cEvent juz trwa: &f%event%&c."
+  stop:
+    success: "&cZatrzymano event: &f%event%"
+    no-event: "&cNie ma aktywnego eventu do zatrzymania."
+  status:
+    running: "&aAktualny event: &f%event%"
+    idle: "&eObecnie nie ma aktywnego eventu."
+  reload:
+    success: "&aPrzeladowano konfiguracje i pliki jezykowe. Aktywny jezyk: &f%language%&a."
+  update:
+    checking: "&7Sprawdzam najnowsze wydanie na GitHubie..."
+
+announcement:
+  starting-in: "&eKolejny event rozpocznie sie za &c%time% &emin."
+
+event:
+  start: "&eRozpoczeto event: &b%event%"
+  end: "&cZakonczono event: &b%event%"
+  no-events: "&cNie zarejestrowano zadnych eventow."
+  coin-rain:
+    reward-received: "&aOdebrano nagrode Coin Rain: &f%amount%"
+    deposit-failed: "&cNie udalo sie dodac nagrody do salda."
+  target:
+    no-players: "&cBrak graczy online do wybrania celu."
+    selected: "&cCEL: &e%player%"
+
+events:
+  low-gravity:
+    name: "Niska Grawitacja"
+  coin-rain:
+    name: "Deszcz Monet"
+  lightning-storm:
+    name: "Burza Piorunow"
+  tnt-rain:
+    name: "Deszcz TNT"
+  mob-swarm:
+    name: "Roj Mobow"
+  random-teleport:
+    name: "Losowa Teleportacja"
+  fire-feet:
+    name: "Ogniste Stopy"
+  freeze:
+    name: "Zamrozenie"
+  reverse-controls:
+    name: "Odwrocone Sterowanie"
+  black-hole:
+    name: "Czarna Dziura"
+  random-effects:
+    name: "Losowe Efekty"
+  target-player:
+    name: "Namierz Gracza"
+  spin:
+    name: "Obrot"
+
+bossbar:
+  title: "&9Event Pulse: &f%event%"
+
+milk-blocked: "&cNie mozesz uzyc mleka podczas aktywnego eventu."
+
+update:
+  available:
+    line-1: "&eDostepna jest nowa wersja PulseEvents: &a%latest% &7(obecnie: &c%current%&7)"
+    line-2: "&7Pobierz: &b%url%"
+  up-to-date: "&aMasz juz najnowsza wersje: &f%current%"
+  check-failed: "&cNie udalo sie sprawdzic aktualizacji. Sprawdz polaczenie z internetem lub GitHub."
+  console-check-failed: "Nie udalo sie sprawdzic aktualizacji."
