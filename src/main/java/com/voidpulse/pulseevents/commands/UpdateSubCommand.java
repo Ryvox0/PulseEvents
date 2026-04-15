@@ -15,12 +15,17 @@ public class UpdateSubCommand extends BaseSubCommand {
     }
 
     @Override
-    public boolean requiresAdmin() {
-        return true;
+    public String getPermission() {
+        return "pulseevents.admin";
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (!enforceCommandCooldown(sender)) {
+            return;
+        }
+
+        triggerCommandCooldown(sender);
         sender.sendMessage(lang.getWithPrefix("command.update.checking"));
         updateChecker.check(sender);
     }

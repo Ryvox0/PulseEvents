@@ -4,14 +4,22 @@ command:
   usage: "&eUzyj: &f/pe help"
   unknown: "&cNieznana podkomenda."
   no-permission: "&cNie masz permisji do uzycia tej komendy."
+  system-disabled: "&cSystem eventow jest obecnie wylaczony."
   help:
     header: "&eDostepne komendy PulseEvents:"
     line-help: "&6/pe help &7- Pokazuje wszystkie komendy pluginu"
     line-start: "&6/pe start &7- Natychmiast uruchamia losowy event"
     line-stop: "&6/pe stop &7- Zatrzymuje aktualny event"
     line-status: "&6/pe status &7- Pokazuje status aktualnego eventu"
+    line-events: "&6/pe events &7- Pokazuje pelna liste zarejestrowanych eventow"
+    line-queue: "&6/pe queue <add|list|remove|clear> &7- Zarzadza kolejka FIFO eventow"
+    line-toggle: "&6/pe toggle <on|off> &7- Wlacza lub wylacza system eventow"
     line-reload: "&6/pe reload &7- Przeladowuje config i pliki jezykowe"
     line-update: "&6/pe update &7- Sprawdza nowa wersje pluginu"
+  cooldown:
+    command: "&cMusisz odczekac &f%time%&c sek., zanim uzyjesz kolejnej komendy administracyjnej."
+    event-start-global: "&cGlobalny cooldown startu eventu wygasa za &f%time%&c sek."
+    event-start-player: "&cMusisz odczekac &f%time%&c sek., zanim uruchomisz kolejny event."
   start:
     success: "&aUruchomiono losowy event."
     failed: "&cNie udalo sie uruchomic eventu. Upewnij sie, ze gracze sa online."
@@ -23,10 +31,29 @@ command:
   status:
     running: "&aAktualny event: &f%event%"
     idle: "&eObecnie nie ma aktywnego eventu."
+  events:
+    header: "&eZarejestrowane eventy:"
+    line: "&6%index%. &f%event%"
   reload:
     success: "&aPrzeladowano konfiguracje i pliki jezykowe. Aktywny jezyk: &f%language%&a."
+  toggle:
+    usage: "&eUzyj: &f/pe toggle <on|off>"
+    enabled: "&aSystem eventow zostal wlaczony."
+    disabled: "&cSystem eventow zostal wylaczony."
   update:
     checking: "&7Sprawdzam najnowsze wydanie na GitHubie..."
+  queue:
+    usage: "&eUzyj: &f/pe queue <add|list|remove|clear>"
+    add-usage: "&eUzyj: &f/pe queue add <event>"
+    remove-usage: "&eUzyj: &f/pe queue remove <index>"
+    invalid-event: "&cNieznany event: &f%event%"
+    invalid-index: "&cNieprawidlowy indeks kolejki."
+    add-success: "&aDodano event do kolejki: &f%event%"
+    remove-success: "&aUsunieto event z kolejki: &f%event%"
+    clear-success: "&aWyczyszczono kolejke eventow."
+    empty: "&eKolejka eventow jest obecnie pusta."
+    header: "&eZakolejkowane eventy:"
+    line: "&6%index%. &f%event%"
 
 announcement:
   starting-in: "&eKolejny event rozpocznie sie za &c%time% &emin."

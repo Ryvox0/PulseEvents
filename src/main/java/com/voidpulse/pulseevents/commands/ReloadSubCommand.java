@@ -15,13 +15,18 @@ public class ReloadSubCommand extends BaseSubCommand {
     }
 
     @Override
-    public boolean requiresAdmin() {
-        return true;
+    public String getPermission() {
+        return "pulseevents.admin";
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (!enforceCommandCooldown(sender)) {
+            return;
+        }
+
         plugin.reloadPlugin();
+        triggerCommandCooldown(sender);
         sender.sendMessage(lang.getWithPrefix(
                 "command.reload.success",
                 "%language%",

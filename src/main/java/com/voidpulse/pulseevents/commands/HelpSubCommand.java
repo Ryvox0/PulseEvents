@@ -15,8 +15,8 @@ public class HelpSubCommand extends BaseSubCommand {
     }
 
     @Override
-    public boolean requiresAdmin() {
-        return false;
+    public String getPermission() {
+        return null;
     }
 
     @Override
@@ -26,6 +26,9 @@ public class HelpSubCommand extends BaseSubCommand {
         sender.sendMessage(lang.get("command.help.line-start"));
         sender.sendMessage(lang.get("command.help.line-stop"));
         sender.sendMessage(lang.get("command.help.line-status"));
+        sender.sendMessage(lang.get("command.help.line-events"));
+        sender.sendMessage(lang.get("command.help.line-queue"));
+        sender.sendMessage(lang.get("command.help.line-toggle"));
         sender.sendMessage(lang.get("command.help.line-reload"));
         sender.sendMessage(lang.get("command.help.line-update"));
     }

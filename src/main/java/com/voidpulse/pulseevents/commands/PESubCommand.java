@@ -6,7 +6,7 @@ public interface PESubCommand {
 
     String getName();
 
-    boolean requiresAdmin();
+    String getPermission();
 
     void execute(CommandSender sender, String[] args);
 }

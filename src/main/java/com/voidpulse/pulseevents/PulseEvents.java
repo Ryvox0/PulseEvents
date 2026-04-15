@@ -21,8 +21,9 @@ import com.voidpulse.pulseevents.manager.EconomyManager;
 import com.voidpulse.pulseevents.manager.EventManager;
 import com.voidpulse.pulseevents.manager.LanguageManager;
 import com.voidpulse.pulseevents.manager.LiveUIManager;
+import com.voidpulse.pulseevents.manager.AnnouncementManager;
+import com.voidpulse.pulseevents.manager.CooldownManager;
 import com.voidpulse.pulseevents.manager.WorldCheck;
-import com.voidpulse.pulseevents.task.EventTask;
 import com.voidpulse.pulseevents.update.UpdateChecker;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,10 +34,12 @@ public final class PulseEvents extends JavaPlugin {
 
     private EventManager eventManager;
     private LiveUIManager liveUIManager;
+    private AnnouncementManager announcementManager;
     private LanguageManager lang;
     private WorldCheck worldCheck;
     private UpdateChecker updateChecker;
     private EconomyManager economyManager;
+    private CooldownManager cooldownManager;
 
     @Override
     public void onEnable() {
@@ -59,6 +62,10 @@ public final class PulseEvents extends JavaPlugin {
             eventManager.stopCurrent();
         }
 
+        if (announcementManager != null) {
+            announcementManager.stop();
+        }
+
         if (liveUIManager != null) {
             liveUIManager.stop();
         }
@@ -67,7 +74,10 @@ public final class PulseEvents extends JavaPlugin {
     private void initManagers() {
         lang = new LanguageManager(this);
         liveUIManager = new LiveUIManager(this, lang);
+        cooldownManager = new CooldownManager(this);
         eventManager = new EventManager(this, liveUIManager, lang);
+        announcementManager = new AnnouncementManager(this, eventManager, lang);
+        eventManager.setAnnouncementManager(announcementManager);
         worldCheck = new WorldCheck(this);
         updateChecker = new UpdateChecker(this, lang, "Ryvox0/PulseEvents");
         economyManager = new EconomyManager(this);
@@ -91,7 +101,9 @@ public final class PulseEvents extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(getCommand("pe")).setExecutor(new PECommand(this));
+        PECommand peCommand = new PECommand(this);
+        Objects.requireNonNull(getCommand("pe")).setExecutor(peCommand);
+        Objects.requireNonNull(getCommand("pe")).setTabCompleter(peCommand);
     }
 
     private void registerGameEvents() {
@@ -117,7 +129,7 @@ public final class PulseEvents extends JavaPlugin {
     }
 
     private void startSystems() {
-        EventTask.start(this, eventManager, lang);
+        announcementManager.start();
 
         if (getConfig().getBoolean("update-check.enabled", true)
                 && getConfig().getBoolean("update-check.check-on-startup", true)) {
@@ -130,6 +142,12 @@ public final class PulseEvents extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
         lang.load();
+        cooldownManager.reload();
+        eventManager.reloadState();
+
+        if (announcementManager != null) {
+            announcementManager.refreshSchedules();
+        }
     }
 
     public EventManager getEventManager() {
@@ -138,6 +156,10 @@ public final class PulseEvents extends JavaPlugin {
 
     public LiveUIManager getLiveUIManager() {
         return liveUIManager;
+    }
+
+    public AnnouncementManager getAnnouncementManager() {
+        return announcementManager;
     }
 
     public LanguageManager getLang() {
@@ -154,5 +176,9 @@ public final class PulseEvents extends JavaPlugin {
 
     public EconomyManager getEconomyManager() {
         return economyManager;
+    }
+
+    public CooldownManager getCooldownManager() {
+        return cooldownManager;
     }
 }

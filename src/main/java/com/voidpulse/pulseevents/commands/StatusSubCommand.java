@@ -15,12 +15,17 @@ public class StatusSubCommand extends BaseSubCommand {
     }
 
     @Override
-    public boolean requiresAdmin() {
-        return true;
+    public String getPermission() {
+        return "pulseevents.admin";
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (!eventManager.isEventsSystemEnabled()) {
+            sender.sendMessage(lang.getWithPrefix("command.system-disabled"));
+            return;
+        }
+
         if (eventManager.isEventRunning()) {
             sender.sendMessage(lang.getWithPrefix(
                     "command.status.running",

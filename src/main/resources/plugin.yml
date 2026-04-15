@@ -1,15 +1,26 @@
 name: PulseEvents
-version: 0.0.2
+version: 0.0.3
 main: com.voidpulse.pulseevents.PulseEvents
 api-version: 1.20
 
 commands:
   pe:
     description: Main command
-    usage: /pe <help|start|stop|status|reload|update>
-    permission: pulseevents.admin
+    usage: /pe <help|start|stop|status|events|queue|toggle|reload|update>
 
 permissions:
   pulseevents.admin:
     description: Access to admin features
+    default: op
+  pulseevents.queue.add:
+    description: Add events to the FIFO queue
+    default: op
+  pulseevents.queue.list:
+    description: View the FIFO queue
+    default: op
+  pulseevents.queue.remove:
+    description: Remove queued events by index
+    default: op
+  pulseevents.queue.clear:
+    description: Clear the FIFO queue
     default: op

@@ -4,14 +4,22 @@ command:
   usage: "&eUse: &f/pe help"
   unknown: "&cUnknown subcommand."
   no-permission: "&cYou do not have permission to use this command."
+  system-disabled: "&cThe event system is currently disabled."
   help:
     header: "&eAvailable PulseEvents commands:"
     line-help: "&6/pe help &7- Show all plugin commands"
     line-start: "&6/pe start &7- Start a random event immediately"
     line-stop: "&6/pe stop &7- Stop the current event"
     line-status: "&6/pe status &7- Show the current event status"
+    line-events: "&6/pe events &7- Show the full list of registered events"
+    line-queue: "&6/pe queue <add|list|remove|clear> &7- Manage the FIFO event queue"
+    line-toggle: "&6/pe toggle <on|off> &7- Enable or disable the event system"
     line-reload: "&6/pe reload &7- Reload config and language files"
     line-update: "&6/pe update &7- Check for a new plugin version"
+  cooldown:
+    command: "&cYou must wait &f%time%&c second(s) before using another admin command."
+    event-start-global: "&cGlobal event start cooldown is active for another &f%time%&c second(s)."
+    event-start-player: "&cYou must wait &f%time%&c second(s) before starting another event."
   start:
     success: "&aA random event has been started."
     failed: "&cThe event could not be started. Make sure players are online."
@@ -23,10 +31,29 @@ command:
   status:
     running: "&aCurrent event: &f%event%"
     idle: "&eNo event is active right now."
+  events:
+    header: "&eRegistered events:"
+    line: "&6%index%. &f%event%"
   reload:
     success: "&aConfiguration and language files reloaded. Active language: &f%language%&a."
+  toggle:
+    usage: "&eUse: &f/pe toggle <on|off>"
+    enabled: "&aThe event system has been enabled."
+    disabled: "&cThe event system has been disabled."
   update:
     checking: "&7Checking GitHub for the latest release..."
+  queue:
+    usage: "&eUse: &f/pe queue <add|list|remove|clear>"
+    add-usage: "&eUse: &f/pe queue add <event>"
+    remove-usage: "&eUse: &f/pe queue remove <index>"
+    invalid-event: "&cUnknown event: &f%event%"
+    invalid-index: "&cInvalid queue index."
+    add-success: "&aAdded event to queue: &f%event%"
+    remove-success: "&aRemoved event from queue: &f%event%"
+    clear-success: "&aThe event queue has been cleared."
+    empty: "&eThe event queue is currently empty."
+    header: "&eQueued events:"
+    line: "&6%index%. &f%event%"
 
 announcement:
   starting-in: "&eThe next event starts in &c%time% &eminute(s)."

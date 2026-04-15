@@ -1,7 +1,12 @@
 settings:
   language: en
 
+cooldown:
+  event-start: 300
+  command: 5
+
 events:
+  enabled: true
   min-interval: 180
   max-interval: 600
   coin-rain:
@@ -16,6 +21,9 @@ announcements:
     - 10
     - 5
     - 1
+
+queue:
+  retry-delay-seconds: 15
 
 bossbar:
   enabled: true
