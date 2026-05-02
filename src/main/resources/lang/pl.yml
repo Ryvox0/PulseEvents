@@ -1,93 +1,89 @@
 prefix: "&6[PulseEvents] "
 
 command:
-  usage: "&eUzyj: &f/pe help"
+  usage: "&eUżyj: &f/pe help"
   unknown: "&cNieznana podkomenda."
-  no-permission: "&cNie masz permisji do uzycia tej komendy."
-  system-disabled: "&cSystem eventow jest obecnie wylaczony."
+  no-permission: "&cNie masz uprawnień do użycia tej komendy."
+  system-disabled: "&cSystem eventów jest obecnie wyłączony."
   help:
-    header: "&eDostepne komendy PulseEvents:"
-    line-help: "&6/pe help &7- Pokazuje wszystkie komendy pluginu"
-    line-start: "&6/pe start &7- Natychmiast uruchamia losowy event"
-    line-stop: "&6/pe stop &7- Zatrzymuje aktualny event"
-    line-status: "&6/pe status &7- Pokazuje status aktualnego eventu"
-    line-events: "&6/pe events &7- Pokazuje pelna liste zarejestrowanych eventow"
-    line-queue: "&6/pe queue <add|list|remove|clear> &7- Zarzadza kolejka FIFO eventow"
-    line-toggle: "&6/pe toggle <on|off> &7- Wlacza lub wylacza system eventow"
-    line-reload: "&6/pe reload &7- Przeladowuje config i pliki jezykowe"
-    line-update: "&6/pe update &7- Sprawdza nowa wersje pluginu"
+    header: "&eDostępne komendy PulseEvents:"
+    line-help: "&6/pe help &7- Pokaż wszystkie komendy pluginu"
+    line-start: "&6/pe start &7- Natychmiast uruchom losowy event"
+    line-stop: "&6/pe stop &7- Zatrzymaj aktualny event"
+    line-status: "&6/pe status &7- Pokaż status aktualnego eventu"
+    line-events: "&6/pe events &7- Otwórz menu szans eventów"
+    line-queue: "&6/pe queue <add|list|remove|clear> &7- Zarządzaj kolejką eventów FIFO"
+    line-toggle: "&6/pe toggle <on|off> &7- Włącz lub wyłącz system eventów"
+    line-reload: "&6/pe reload &7- Przeładuj config i pliki językowe"
+    line-update: "&6/pe update &7- Sprawdź nową wersję pluginu"
   cooldown:
-    command: "&cMusisz odczekac &f%time%&c sek., zanim uzyjesz kolejnej komendy administracyjnej."
-    event-start-global: "&cGlobalny cooldown startu eventu wygasa za &f%time%&c sek."
-    event-start-player: "&cMusisz odczekac &f%time%&c sek., zanim uruchomisz kolejny event."
+    command: "&cMusisz odczekać &f%time%&c sek., zanim użyjesz kolejnej komendy administracyjnej."
+    event-start-global: "&cGlobalny cooldown uruchamiania eventów jest aktywny jeszcze przez &f%time%&c sek."
+    event-start-player: "&cMusisz odczekać &f%time%&c sek., zanim uruchomisz kolejny event."
   start:
     success: "&aUruchomiono losowy event."
-    failed: "&cNie udalo sie uruchomic eventu. Upewnij sie, ze gracze sa online."
-    no-events: "&cNie zarejestrowano zadnych eventow."
-    already-running: "&cEvent juz trwa: &f%event%&c."
+    failed: "&cNie udało się uruchomić eventu. Upewnij się, że gracze są online."
+    no-events: "&cBrak zarejestrowanych eventów."
+    already-running: "&cJeden event jest już aktywny: &f%event%&c."
   stop:
     success: "&cZatrzymano event: &f%event%"
-    no-event: "&cNie ma aktywnego eventu do zatrzymania."
+    no-event: "&cObecnie nie ma aktywnego eventu."
   status:
     running: "&aAktualny event: &f%event%"
-    idle: "&eObecnie nie ma aktywnego eventu."
+    idle: "&eObecnie żaden event nie jest aktywny."
   events:
     header: "&eZarejestrowane eventy:"
     line: "&6%index%. &f%event%"
   reload:
-    success: "&aPrzeladowano konfiguracje i pliki jezykowe. Aktywny jezyk: &f%language%&a."
+    success: "&aPrzeładowano config i pliki językowe. Aktywny język: &f%language%&a."
   toggle:
-    usage: "&eUzyj: &f/pe toggle <on|off>"
-    enabled: "&aSystem eventow zostal wlaczony."
-    disabled: "&cSystem eventow zostal wylaczony."
+    usage: "&eUżyj: &f/pe toggle <on|off>"
+    enabled: "&aSystem eventów został włączony."
+    disabled: "&cSystem eventów został wyłączony."
   update:
-    checking: "&7Sprawdzam najnowsze wydanie na GitHubie..."
+    checking: "&7Sprawdzanie najnowszej wersji na GitHubie..."
   queue:
-    usage: "&eUzyj: &f/pe queue <add|list|remove|clear>"
-    add-usage: "&eUzyj: &f/pe queue add <event>"
-    remove-usage: "&eUzyj: &f/pe queue remove <index>"
+    usage: "&eUżyj: &f/pe queue <add|list|remove|clear>"
+    add-usage: "&eUżyj: &f/pe queue add <event>"
+    remove-usage: "&eUżyj: &f/pe queue remove <index>"
     invalid-event: "&cNieznany event: &f%event%"
-    invalid-index: "&cNieprawidlowy indeks kolejki."
+    invalid-index: "&cNieprawidłowy indeks kolejki."
     add-success: "&aDodano event do kolejki: &f%event%"
-    remove-success: "&aUsunieto event z kolejki: &f%event%"
-    clear-success: "&aWyczyszczono kolejke eventow."
-    empty: "&eKolejka eventow jest obecnie pusta."
-    header: "&eZakolejkowane eventy:"
+    remove-success: "&aUsunięto event z kolejki: &f%event%"
+    clear-success: "&aKolejka eventów została wyczyszczona."
+    empty: "&eKolejka eventów jest obecnie pusta."
+    header: "&eEventy w kolejce:"
     line: "&6%index%. &f%event%"
 
 announcement:
-  starting-in: "&eKolejny event rozpocznie sie za &c%time% &emin."
+  starting-in: "&eNastępny event rozpocznie się za &c%time% &emin."
 
 event:
-  start: "&eRozpoczeto event: &b%event%"
-  end: "&cZakonczono event: &b%event%"
-  no-events: "&cNie zarejestrowano zadnych eventow."
+  start: "&eRozpoczęto event: &b%event%"
+  end: "&cZakończono event: &b%event%"
+  no-events: "&cBrak zarejestrowanych eventów."
   coin-rain:
-    reward-received: "&aOdebrano nagrode Coin Rain: &f%amount%"
-    deposit-failed: "&cNie udalo sie dodac nagrody do salda."
+    reward-received: "&aOtrzymałeś nagrodę monetarną: &f%amount%"
+    deposit-failed: "&cNie udało się dodać nagrody do twojego salda."
   target:
-    no-players: "&cBrak graczy online do wybrania celu."
+    no-players: "&cBrak graczy online do namierzenia."
     selected: "&cCEL: &e%player%"
 
 events:
-  low-gravity:
-    name: "Niska Grawitacja"
   coin-rain:
     name: "Deszcz Monet"
   lightning-storm:
-    name: "Burza Piorunow"
+    name: "Burza Piorunów"
   tnt-rain:
     name: "Deszcz TNT"
   mob-swarm:
-    name: "Roj Mobow"
+    name: "Rój Mobów"
   random-teleport:
     name: "Losowa Teleportacja"
   fire-feet:
     name: "Ogniste Stopy"
   freeze:
-    name: "Zamrozenie"
-  reverse-controls:
-    name: "Odwrocone Sterowanie"
+    name: "Zamrożenie"
   black-hole:
     name: "Czarna Dziura"
   random-effects:
@@ -95,17 +91,34 @@ events:
   target-player:
     name: "Namierz Gracza"
   spin:
-    name: "Obrot"
+    name: "Zakręcenie"
 
 bossbar:
-  title: "&9Event Pulse: &f%event%"
+  title: "&9Pulse Event: &f%event%"
 
-milk-blocked: "&cNie mozesz uzyc mleka podczas aktywnego eventu."
+gui:
+  events:
+    title: "&8Szanse Eventów"
+    item-name: "&e%event%"
+    item-chance: "&7Szansa: &f%chance%"
+    item-left: "&aLewy przycisk: +5"
+    item-right: "&cPrawy przycisk: -5"
+    item-shift-left: "&aShift + lewy przycisk: +20"
+    item-shift-right: "&cShift + prawy przycisk: -20"
+    item-middle: "&bŚrodkowy przycisk: dodaj do kolejki"
+    item-queued: "&7Liczba w kolejce: &f%amount%"
+    updated: "&aZmieniono szansę eventu %event% na &f%chance%&a."
+    queued: "&aDodano %event% do kolejki. Łącznie w kolejce: &f%amount%&a."
+    queue-name: "&6Kolejka Eventów"
+    queue-size: "&7Eventy w kolejce: &f%amount%"
+    queue-hint: "&7Użyj środkowego przycisku, aby szybko dodać event."
+
+milk-blocked: "&cNie możesz używać mleka podczas aktywnego eventu."
 
 update:
   available:
-    line-1: "&eDostepna jest nowa wersja PulseEvents: &a%latest% &7(obecnie: &c%current%&7)"
+    line-1: "&eDostępna jest nowa wersja PulseEvents: &a%latest% &7(obecna: &c%current%&7)"
     line-2: "&7Pobierz: &b%url%"
-  up-to-date: "&aMasz juz najnowsza wersje: &f%current%"
-  check-failed: "&cNie udalo sie sprawdzic aktualizacji. Sprawdz polaczenie z internetem lub GitHub."
-  console-check-failed: "Nie udalo sie sprawdzic aktualizacji."
+  up-to-date: "&aMasz już zainstalowaną najnowszą wersję: &f%current%"
+  check-failed: "&cSprawdzanie aktualizacji nie powiodło się. Sprawdź połączenie z internetem lub dostępność GitHuba."
+  console-check-failed: "Sprawdzanie aktualizacji nie powiodło się."

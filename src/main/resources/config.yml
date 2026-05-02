@@ -10,11 +10,32 @@ events:
   min-interval: 180
   max-interval: 600
   coin-rain:
+    chance: 100
     reward:
       min: 1.0
       max: 5.0
     drop-interval-ticks: 10
     velocity-multiplier: 0.4
+  lightning-storm:
+    chance: 100
+  tnt-rain:
+    chance: 100
+  mob-swarm:
+    chance: 100
+  random-teleport:
+    chance: 100
+  fire-feet:
+    chance: 100
+  freeze:
+    chance: 100
+  black-hole:
+    chance: 100
+  random-effects:
+    chance: 100
+  target-player:
+    chance: 100
+  spin:
+    chance: 100
 
 announcements:
   times:

@@ -27,14 +27,17 @@ public class TNTRainEvent implements PulseEvent {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Location loc = p.getLocation().add(0, 10, 0);
                 TNTPrimed tnt = p.getWorld().spawn(loc, TNTPrimed.class);
-                tnt.setFuseTicks(40);
+                tnt.setFuseTicks(60);
             }
-        }, 0L, 30L);
+        }, 0L, 50L);
     }
 
     @Override
     public void stop() {
-        if (task != null) task.cancel();
+        if (task != null) {
+            task.cancel();
+            task = null;
+        }
     }
 
     @Override

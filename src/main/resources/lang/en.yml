@@ -11,7 +11,7 @@ command:
     line-start: "&6/pe start &7- Start a random event immediately"
     line-stop: "&6/pe stop &7- Stop the current event"
     line-status: "&6/pe status &7- Show the current event status"
-    line-events: "&6/pe events &7- Show the full list of registered events"
+    line-events: "&6/pe events &7- Open the event chances menu"
     line-queue: "&6/pe queue <add|list|remove|clear> &7- Manage the FIFO event queue"
     line-toggle: "&6/pe toggle <on|off> &7- Enable or disable the event system"
     line-reload: "&6/pe reload &7- Reload config and language files"
@@ -70,8 +70,6 @@ event:
     selected: "&cTARGET: &e%player%"
 
 events:
-  low-gravity:
-    name: "Low Gravity"
   coin-rain:
     name: "Coin Rain"
   lightning-storm:
@@ -86,8 +84,6 @@ events:
     name: "Fire Feet"
   freeze:
     name: "Freeze"
-  reverse-controls:
-    name: "Reverse Controls"
   black-hole:
     name: "Black Hole"
   random-effects:
@@ -99,6 +95,23 @@ events:
 
 bossbar:
   title: "&9Pulse Event: &f%event%"
+
+gui:
+  events:
+    title: "&8Event Chances"
+    item-name: "&e%event%"
+    item-chance: "&7Chance: &f%chance%"
+    item-left: "&aLeft click: +5"
+    item-right: "&cRight click: -5"
+    item-shift-left: "&aShift + left click: +20"
+    item-shift-right: "&cShift + right click: -20"
+    item-middle: "&bMiddle click: add to queue"
+    item-queued: "&7Queued copies: &f%amount%"
+    updated: "&aUpdated %event% chance to &f%chance%&a."
+    queued: "&aAdded %event% to queue. Total queued copies: &f%amount%&a."
+    queue-name: "&6Event Queue"
+    queue-size: "&7Queued events: &f%amount%"
+    queue-hint: "&7Use middle click on an event to queue it instantly."
 
 milk-blocked: "&cYou cannot use milk during an active event."
 

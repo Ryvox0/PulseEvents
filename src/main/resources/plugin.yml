@@ -2,6 +2,9 @@ name: PulseEvents
 version: 0.0.3
 main: com.voidpulse.pulseevents.PulseEvents
 api-version: 1.20
+softdepend:
+  - PlaceholderAPI
+  - Vault
 
 commands:
   pe:

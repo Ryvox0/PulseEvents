@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,7 +89,9 @@ public class EventManager {
             return false;
         }
 
-        if (events.isEmpty()) {
+        List<PulseEvent> availableEvents = getAvailableRandomEvents();
+
+        if (availableEvents.isEmpty()) {
             Bukkit.broadcastMessage(lang.getWithPrefix("event.no-events"));
             return false;
         }
@@ -102,7 +105,8 @@ public class EventManager {
             return false;
         }
 
-        return startEvent(events.get(random.nextInt(events.size())));
+        PulseEvent selectedEvent = selectWeightedRandomEvent(availableEvents);
+        return selectedEvent != null && startEvent(selectedEvent);
     }
 
     public boolean enqueueEvent(String eventName) {
@@ -251,6 +255,32 @@ public class EventManager {
         return names;
     }
 
+    public List<PulseEvent> getRegisteredEvents() {
+        return new ArrayList<>(events);
+    }
+
+    public String getConfigKey(PulseEvent event) {
+        String className = event.getClass().getSimpleName();
+        String baseName = className.endsWith("Event")
+                ? className.substring(0, className.length() - "Event".length())
+                : className;
+
+        return baseName.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase(Locale.ROOT);
+    }
+
+    public int getEventChance(PulseEvent event) {
+        return Math.max(0, plugin.getConfig().getInt("events." + getConfigKey(event) + ".chance", 100));
+    }
+
+    public void setEventChance(PulseEvent event, int chance) {
+        plugin.getConfig().set("events." + getConfigKey(event) + ".chance", Math.max(0, chance));
+        plugin.saveConfig();
+
+        if (announcementManager != null) {
+            announcementManager.refreshSchedules();
+        }
+    }
+
     public String getCurrentEventDisplayName() {
         return current == null ? null : getDisplayName(current);
     }
@@ -261,9 +291,7 @@ public class EventManager {
                 ? className.substring(0, className.length() - "Event".length())
                 : className;
 
-        String translationKey = "events."
-                + baseName.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase(Locale.ROOT)
-                + ".name";
+        String translationKey = "events." + getConfigKey(event) + ".name";
 
         return lang.getOrDefault(translationKey, toTitleCase(baseName));
     }
@@ -309,6 +337,42 @@ public class EventManager {
         );
 
         return true;
+    }
+
+    private List<PulseEvent> getAvailableRandomEvents() {
+        List<PulseEvent> available = new ArrayList<>();
+
+        for (PulseEvent event : events) {
+            if (getEventChance(event) > 0) {
+                available.add(event);
+            }
+        }
+
+        available.sort(Comparator.comparing(this::getDisplayName));
+        return available;
+    }
+
+    private PulseEvent selectWeightedRandomEvent(List<PulseEvent> availableEvents) {
+        int totalWeight = 0;
+
+        for (PulseEvent event : availableEvents) {
+            totalWeight += getEventChance(event);
+        }
+
+        if (totalWeight <= 0) {
+            return null;
+        }
+
+        int roll = random.nextInt(totalWeight);
+
+        for (PulseEvent event : availableEvents) {
+            roll -= getEventChance(event);
+            if (roll < 0) {
+                return event;
+            }
+        }
+
+        return availableEvents.get(availableEvents.size() - 1);
     }
 
     private void cancelStopTask() {

@@ -6,15 +6,14 @@ import com.voidpulse.pulseevents.events.CoinRainEvent;
 import com.voidpulse.pulseevents.events.FireFeetEvent;
 import com.voidpulse.pulseevents.events.FreezeEvent;
 import com.voidpulse.pulseevents.events.LightningStormEvent;
-import com.voidpulse.pulseevents.events.LowGravityEvent;
 import com.voidpulse.pulseevents.events.MobSwarmEvent;
 import com.voidpulse.pulseevents.events.RandomEffectsEvent;
 import com.voidpulse.pulseevents.events.RandomTeleportEvent;
-import com.voidpulse.pulseevents.events.ReverseControlsEvent;
 import com.voidpulse.pulseevents.events.SpinEvent;
 import com.voidpulse.pulseevents.events.TNTRainEvent;
 import com.voidpulse.pulseevents.events.TargetPlayerEvent;
 import com.voidpulse.pulseevents.listener.CoinRainListener;
+import com.voidpulse.pulseevents.listener.EventsGuiListener;
 import com.voidpulse.pulseevents.listener.JoinListener;
 import com.voidpulse.pulseevents.listener.MilkBlockListener;
 import com.voidpulse.pulseevents.manager.EconomyManager;
@@ -24,6 +23,7 @@ import com.voidpulse.pulseevents.manager.LiveUIManager;
 import com.voidpulse.pulseevents.manager.AnnouncementManager;
 import com.voidpulse.pulseevents.manager.CooldownManager;
 import com.voidpulse.pulseevents.manager.WorldCheck;
+import com.voidpulse.pulseevents.placeholder.PulseEventsPlaceholderExpansion;
 import com.voidpulse.pulseevents.update.UpdateChecker;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,6 +40,8 @@ public final class PulseEvents extends JavaPlugin {
     private UpdateChecker updateChecker;
     private EconomyManager economyManager;
     private CooldownManager cooldownManager;
+    private EventsGuiListener eventsGuiListener;
+    private PulseEventsPlaceholderExpansion placeholderExpansion;
 
     @Override
     public void onEnable() {
@@ -51,6 +53,7 @@ public final class PulseEvents extends JavaPlugin {
         registerEvents();
         registerCommands();
         registerGameEvents();
+        registerPlaceholderExpansion();
         startSystems();
 
         getLogger().info("PulseEvents enabled.");
@@ -98,6 +101,9 @@ public final class PulseEvents extends JavaPlugin {
                 new CoinRainListener(economyManager, lang),
                 this
         );
+
+        eventsGuiListener = new EventsGuiListener(this, eventManager, lang);
+        getServer().getPluginManager().registerEvents(eventsGuiListener, this);
     }
 
     private void registerCommands() {
@@ -107,8 +113,6 @@ public final class PulseEvents extends JavaPlugin {
     }
 
     private void registerGameEvents() {
-        eventManager.registerEvent(new LowGravityEvent(this));
-
         if (economyManager.isAvailable()) {
             eventManager.registerEvent(new CoinRainEvent(this));
         } else {
@@ -121,7 +125,6 @@ public final class PulseEvents extends JavaPlugin {
         eventManager.registerEvent(new RandomTeleportEvent(this));
         eventManager.registerEvent(new FireFeetEvent(this));
         eventManager.registerEvent(new FreezeEvent(this));
-        eventManager.registerEvent(new ReverseControlsEvent(this));
         eventManager.registerEvent(new BlackHoleEvent(this));
         eventManager.registerEvent(new RandomEffectsEvent(this));
         eventManager.registerEvent(new TargetPlayerEvent(this));
@@ -135,6 +138,16 @@ public final class PulseEvents extends JavaPlugin {
                 && getConfig().getBoolean("update-check.check-on-startup", true)) {
             updateChecker.check();
         }
+    }
+
+    private void registerPlaceholderExpansion() {
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null) {
+            return;
+        }
+
+        placeholderExpansion = new PulseEventsPlaceholderExpansion(this);
+        placeholderExpansion.register();
+        getLogger().info("Registered PlaceholderAPI expansion.");
     }
 
     public void reloadPlugin() {
@@ -180,5 +193,9 @@ public final class PulseEvents extends JavaPlugin {
 
     public CooldownManager getCooldownManager() {
         return cooldownManager;
+    }
+
+    public EventsGuiListener getEventsGuiListener() {
+        return eventsGuiListener;
     }
 }

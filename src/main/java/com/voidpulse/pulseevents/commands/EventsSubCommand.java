@@ -18,6 +18,10 @@ public class EventsSubCommand extends BaseSubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (plugin.getEventsGuiListener().openFor(sender)) {
+            return;
+        }
+
         List<String> events = eventManager.getRegisteredEventDisplayNames();
         sender.sendMessage(lang.getWithPrefix("command.events.header"));
 
