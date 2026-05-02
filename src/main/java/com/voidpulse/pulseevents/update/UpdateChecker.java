@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 @SuppressWarnings("deprecation")
 public class UpdateChecker {
+    private static final String DOWNLOAD_URL = "https://modrinth.com/plugin/pulseevents";
 
     private final JavaPlugin plugin;
     private final LanguageManager lang;
@@ -142,6 +143,6 @@ public class UpdateChecker {
     }
 
     private String getReleaseUrl() {
-        return "https://github.com/" + repo + "/releases/latest";
+        return DOWNLOAD_URL;
     }
 }
